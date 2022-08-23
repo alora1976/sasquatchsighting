@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Edit Sighting</title>
+</head>
+
+<body>
+    <div class="container grey">
+
+        <div class="flex-container">
+            <h1 class="majority-width">Edit Sighting for {{sighting.name}}</h1>
+            <div>
+                <a href="/sightings/home">Dashboard</a>
+                <a href="/logout">Log Out</a>
+            </div>
+        </div>
+
+        <div>
+            {% with messages = get_flashed_messages() %}
+            <!-- declare a variable called messages -->
+            {% if messages %}
+            <!-- check if there are any messages -->
+            {% for message in messages %}
+            <!-- loop through the messages -->
+            <p class="error">{{message}}</p> <!-- display each message in a paragraph tag -->
+            {% endfor %}
+            {% endif %}
+
+            {% endwith %}
+        </div>
+
+        <form action="/sightings/{{sighting.id}}" method="post" 
+            class="flex-container with-border majority-width">
+            <div class="half-width">
+                
+
+                <div class="form-group">
+                    <label for="location" class="form-label">Location</label>
+                    <textarea type="text" name="location" class="form-control" id="location">{{sighting.location}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="what_happened" class="form-label">What Happened:</label>
+                    <textarea type="text" name="what_happened" class="form-control" id="what_happened" rows="10">{{sighting.what_happened}}</textarea>
+                </div>
+            </div>
+
+            <div class="half-width">
+                <div class="form-group">
+                    <label for="date_made" class="form-label">Date of Sighting:</label>
+                    <input type="date" class="form-control" name="date_made" id="date_made" value="{{sighting.date_made}}">
+                </div>
+                <div class="form-group">
+                    
+                    <label for="num_sasquatches" class="form-label">Number of Sasquatches Seen:</label>
+                    <input type="number" class="form-control" name="num_sasquatches" id="num_sasquatches" value="{{sighting.num_sasquatches}}">
+                </div>
+                <input type="hidden" name="id" value="{sighting.id}}">
+                <div class="form-group">
+                    <input type="submit" class="btn-primary" value="Submit">
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+
+</body>
+
+</html>
